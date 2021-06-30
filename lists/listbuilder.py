@@ -6,8 +6,8 @@ def main():
     DEV = "testFile.txt"
     PROD = "lists.js"
 
-    PATH_URLS = "lists/Urls/"
-    PATH_KEYWORDS = "lists/Keywords/"
+    PATH_URLS = "Urls/"
+    PATH_KEYWORDS = "Keywords/"
 
     # w = [over]write, a = append
     outputFile = open(PROD, "w")

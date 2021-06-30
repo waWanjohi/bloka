@@ -2,6 +2,7 @@ import {pornMap, bannedWordsList} from "./lists"
 
 let uris = [
     "ftnd.org",
+    "https://www.frc.org/issuebrief/the-effects-of-pornography-on-individuals-marriage-family-and-community",
     "https://www.webmd.com/connect-to-care/addiction-treatment-recovery/porn-addiction-treatments",
     "https://www.rehabs.com/addiction/porn-rehabs/",
     "https://www.flfamily.org/get-help/porn-addiction",

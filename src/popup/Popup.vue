@@ -34,7 +34,11 @@ export default {
   },
   methods: {
     reverseMessage() {
-      this.userLinks.push(this.$refs.user_link.value)
+      // Don't add empty item
+      if (this.$refs.user_link.value != ""){
+      this.userLinks.push(this.$refs.user_link.value);      
+      }
+
     }
   }
 }
