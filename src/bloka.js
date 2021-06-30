@@ -1,3 +1,6 @@
+import { pornMap } from "./lists"
+
+
 // Do this once extension is removed
 chrome.runtime.setUninstallURL(
   "https://docs.google.com/forms/d/11rWt4h6KQaRuuJlMjHdgQL7Tx_feB2f7jwwflrjU4nk/",
@@ -8,7 +11,6 @@ chrome.runtime.setUninstallURL(
 chrome.storage.local.get("notFirstTime", function(returnValue) {
   if (returnValue.notFirstTime === undefined) {
     openLink("options.html");
-    openLink("index.html");
     chrome.storage.local.set({ notFirstTime: true }, function() {});
   }
 });
@@ -19,102 +21,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // updateDB();
   setIncognito();
   initialize();
+
+//   Popup behavior
+// document.getElementById("submit").onclick(submit);
+document.getElementById("submit").addEventListener("click", submit);
+// document.getElementById("setIncognito").onclick(setIncognito);
+// document.getElementById("emergency").onclick(emergency);
+
 });
 
-// Function to update db
-function updateDB() {
-  chrome.storage.local.get(null, function(items) {
-    let linkNames = Object.keys(items);
-    // Do stuff with the links:: FINETUNE LATER
-    // DBOperation(linkNames);
-  });
-}
-
-// FINETUNE LATER
-// function to do db operations
-function DBOperation(linkNames) {
-  //     // Cross-check the api key
-  //     if(!API_KEY) {
-  //         console.warn("Firebase API Key invalid");
-  //     }
-  //     return;
-  // // FIRESTORE SETUP
-  // const API_KEY = "AIzaSyAV-2d0ZSHseDpEM_LqdUXmA75Qe_QvBj8";
-  // const AUTH_DOMAIN = "antiporn-f6472.firebaseapp.com";
-  // const DATABASE_URL = "antiporn-f6472";
-  // const PROJECT_ID = "antiporn-f6472";
-  // const STORAGE_BUCKET = "117423349655";
-  // const MESSAGING_SENDER_ID = "1:117423349655:web:b0ff68691d6826fb642ed2";
-  // // Firebase
-  // let config = {
-  //     apiKey: API_KEY,
-  //     authDomain: AUTH_DOMAIN,
-  //     databaseURL: DATABASE_URL,
-  //     projectId: PROJECT_ID,
-  //     storageBucket: STORAGE_BUCKET,
-  //     messagingSenderId: MESSAGING_SENDER_ID
-  //   };
-  // // Initialize a FB app
-  // firebase.initializeApp(config);
-  // // invoke firestore
-  // let db = firebase.firestore();
-  // // To prevent app from breaking due to an error,
-  // let settings = {
-  //     /* Settings here ... */
-  //     timestampsInSnapshots: true
-  // }
-  // db.settings(settings);
-  // let linksToAdd = [];
-  // // Add links
-  // for (let currentLink = 0; linkNames[currentLink] !== undefined; currentLink++) {
-  //     let val = linkNames[currentLink];
-  //     if (val !== 'realtimeBannedLinks' && vals !== 'notFirstTime') {
-  //         db.collection('links').doc(val).set({
-  //             // Adding this line will write another document ( links -> link -> link:currentLink )
-  //             url: val
-  //         });
-  //        // Debugging
-  //       // .then(function(docRef) {
-  //       //   console.log('Document written with id: ', docRef.id);
-  //       // })
-  //       // .catch(function(error) {
-  //       //   console.error('Error adding document: ', error);
-  //       // });
-  //       linksToAdd.push(val);
-  //     }
-  // }
-  // // Now let's update the main array of links
-  // let allLinks  = db.collection('links').doc('realtimeBannedLinks')
-  // allLinks.get().then(function (doc) {
-  //     if(doc.exists) {
-  //         // Get updated list
-  //         let currentLinks = doc.data().url;
-  //         // Add the links from local storage to the copy of the realtimeBannedLinks
-  //       console.log('length INIT: ' + currentLinks.length);
-  //       for (let i = 0; linksToAdd[i] !== undefined; i++) {
-  //           currentLinks.push(linksToAdd[i]);
-  //         // Clear local storage to free up space
-  //         chrome.storage.local.remove([linksToAdd[i]], function () {});
-  //       }
-  //       console.log('length FINAL: ' + currentLinks.length);
-  //     // Then, update the array of links saved in local storage and update the
-  //     //realtimeBannedLinks in Firebase
-  //     // Do this, and you will have successfully created a method of updating
-  //     // Firebase and everyone else's local storage copies of realtimeBannedLinks
-  //     chrome.storage.local.set({ realtimeBannedLinks: currentLinks }, function () { });
-  //     db.collection('links').doc('realtimeBannedLinks').set({
-  //         url: currentLinks
-  //     });
-  //   }
-  //   else {
-  //     //   doc.data() will be empty
-  //     console.log("Document does not exist!");
-  //   }
-  // }).catch(function (error) {
-  //     console.log("Gideon, We have a problem!" + error);
-  // })
-  // // END FIREBASE
-}
 
 // LOCAL STUFF
 
@@ -341,14 +256,7 @@ function setIncognito() {
   });
 }
 
-// Function helpIncognito()
-// Should users click on the incognito tip, they are directed to Antiporn's
-//  extension page to help with the process of enabling "Allow in incognito"
-function helpIncognito() {
-  chrome.tabs.create({
-    url: "chrome://extensions/?id=" + chrome.runtime.id,
-  });
-}
+
 
 // Function emergency()
 // emergency button functionality
@@ -374,7 +282,7 @@ function emergency() {
 
 function initialize() {
   // Have an array store all keys
-  let urls;
+  let urls = pornMap;
 
   chrome.storage.sync.get(null, (items) => {
     urls = Object.keys(items);
@@ -386,6 +294,14 @@ function initialize() {
       for (let i = 0; urls[i] !== undefined; i++) {
         initList(urls[i]);
       }
+    }
+
+    // If list is empty, Let the user know
+    else {
+        if (document.getElementById("ERROR_MSG")) {
+            let message = "Nothing yet. List is empty";
+            document.getElementById("ERROR_MSG").innerHTML = message.fontcolor("red");
+        }
     }
   });
 }
@@ -429,3 +345,114 @@ function initList(currentKey) {
     }
   });
 }
+
+
+
+
+
+// ORPHANED CODE... 
+// To Remove
+// Function to update db
+// function updateDB() {
+//     chrome.storage.local.get(null, function(items) {
+//       let linkNames = Object.keys(items);
+//       // Do stuff with the links:: FINETUNE LATER
+//       // DBOperation(linkNames);
+//     });
+//   }
+  
+  // FINETUNE LATER
+  // function to do db operations
+//   function DBOperation(linkNames) {
+//     //     // Cross-check the api key
+//     //     if(!API_KEY) {
+//     //         console.warn("Firebase API Key invalid");
+//     //     }
+//     //     return;
+//     // // FIRESTORE SETUP
+//     // const API_KEY = "AIzaSyAV-2d0ZSHseDpEM_LqdUXmA75Qe_QvBj8";
+//     // const AUTH_DOMAIN = "antiporn-f6472.firebaseapp.com";
+//     // const DATABASE_URL = "antiporn-f6472";
+//     // const PROJECT_ID = "antiporn-f6472";
+//     // const STORAGE_BUCKET = "117423349655";
+//     // const MESSAGING_SENDER_ID = "1:117423349655:web:b0ff68691d6826fb642ed2";
+//     // // Firebase
+//     // let config = {
+//     //     apiKey: API_KEY,
+//     //     authDomain: AUTH_DOMAIN,
+//     //     databaseURL: DATABASE_URL,
+//     //     projectId: PROJECT_ID,
+//     //     storageBucket: STORAGE_BUCKET,
+//     //     messagingSenderId: MESSAGING_SENDER_ID
+//     //   };
+//     // // Initialize a FB app
+//     // firebase.initializeApp(config);
+//     // // invoke firestore
+//     // let db = firebase.firestore();
+//     // // To prevent app from breaking due to an error,
+//     // let settings = {
+//     //     /* Settings here ... */
+//     //     timestampsInSnapshots: true
+//     // }
+//     // db.settings(settings);
+//     // let linksToAdd = [];
+//     // // Add links
+//     // for (let currentLink = 0; linkNames[currentLink] !== undefined; currentLink++) {
+//     //     let val = linkNames[currentLink];
+//     //     if (val !== 'realtimeBannedLinks' && vals !== 'notFirstTime') {
+//     //         db.collection('links').doc(val).set({
+//     //             // Adding this line will write another document ( links -> link -> link:currentLink )
+//     //             url: val
+//     //         });
+//     //        // Debugging
+//     //       // .then(function(docRef) {
+//     //       //   console.log('Document written with id: ', docRef.id);
+//     //       // })
+//     //       // .catch(function(error) {
+//     //       //   console.error('Error adding document: ', error);
+//     //       // });
+//     //       linksToAdd.push(val);
+//     //     }
+//     // }
+//     // // Now let's update the main array of links
+//     // let allLinks  = db.collection('links').doc('realtimeBannedLinks')
+//     // allLinks.get().then(function (doc) {
+//     //     if(doc.exists) {
+//     //         // Get updated list
+//     //         let currentLinks = doc.data().url;
+//     //         // Add the links from local storage to the copy of the realtimeBannedLinks
+//     //       console.log('length INIT: ' + currentLinks.length);
+//     //       for (let i = 0; linksToAdd[i] !== undefined; i++) {
+//     //           currentLinks.push(linksToAdd[i]);
+//     //         // Clear local storage to free up space
+//     //         chrome.storage.local.remove([linksToAdd[i]], function () {});
+//     //       }
+//     //       console.log('length FINAL: ' + currentLinks.length);
+//     //     // Then, update the array of links saved in local storage and update the
+//     //     //realtimeBannedLinks in Firebase
+//     //     // Do this, and you will have successfully created a method of updating
+//     //     // Firebase and everyone else's local storage copies of realtimeBannedLinks
+//     //     chrome.storage.local.set({ realtimeBannedLinks: currentLinks }, function () { });
+//     //     db.collection('links').doc('realtimeBannedLinks').set({
+//     //         url: currentLinks
+//     //     });
+//     //   }
+//     //   else {
+//     //     //   doc.data() will be empty
+//     //     console.log("Document does not exist!");
+//     //   }
+//     // }).catch(function (error) {
+//     //     console.log("Gideon, We have a problem!" + error);
+//     // })
+//     // // END FIREBASE
+//   }
+
+
+// Function helpIncognito()
+// Should users click on the incognito tip, they are directed to Antiporn's
+//  extension page to help with the process of enabling "Allow in incognito"
+function helpIncognito() {
+    chrome.tabs.create({
+      url: "chrome://extensions/?id=" + chrome.runtime.id,
+    });
+  }

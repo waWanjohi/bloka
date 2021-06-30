@@ -7,12 +7,15 @@
     <router-view />
 
       <p>{{ message }}</p>
+      <popup>
   </div>
 </template>
 
 
 <script>
+import Popup from './popup/Popup.vue'
 export default {
+  components: { Popup },
   data () {
     return {
       message: "My new tab page"

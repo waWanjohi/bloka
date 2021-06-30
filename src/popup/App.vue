@@ -7,7 +7,7 @@ import Popup from "./Popup.vue";
 
 export default {
   name: "App",
-  components: { PopupPopup },
+  components: { Popup },
 };
 </script>
 
