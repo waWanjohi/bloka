@@ -1,0 +1,52 @@
+<template>
+<div class="wrap">
+  <img src="https://blog.codepen.io/wp-content/uploads/2012/06/Made-For-Codepen.png" alt="" />
+  
+  <p>
+    Hi there, <br /> <br />
+    A while ago I made a Chrome 'Extension' and I thought you, might want it too.
+  </p>
+<ol>
+  <li>Create a folder</li>
+  <li>Copy the code in the JS Tab</li>
+  <li>Create a file named <code>manifest.json</code></li>
+  <li>Download on of the Codepen logos <a href="https://blog.codepen.io/documentation/brand-assets/logos/" target="_blank">here</a></li>
+  <li>Save it as <code>codepen.png</code> and put that in the folder as well</li>
+  <li>Go to <code>chrome://extentions</code> (Menu > Tools > Extensions</li>
+  <li>Click <code>Load unpacked extention...</code></li>
+  <li>Select the folder</li>
+  <li>Open a new tab and see you shortcut :)</li>
+  <li>Have fun!</li>
+</ol>  
+</div>
+</template>
+
+<script>
+export default {
+    name: "Popup"
+}
+</script>
+
+<style scoped>
+body {
+  background-color: black;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+}
+.wrap {
+  width: 400px;
+  margin: 30px auto;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 10px;
+  
+  padding: 20px;
+}
+img {
+  display: block;
+  margin: 0 auto;
+}
+p {
+  padding: 0 0 10px 0;
+}
+</style>

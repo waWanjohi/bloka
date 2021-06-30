@@ -1,0 +1,1 @@
+let sontent = "some content";
