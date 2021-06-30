@@ -396,4 +396,36 @@ function initialize() {
 //  get method can return the associated value and create an li, so we were left with
 //  several "undefined" list objects
 // @param currentKey The key we are retrieving the value of from storage
-function initList(currentKey) {}
+function initList(currentKey) {
+  chrome.storage.sync.get(currentKey, (returnValue) => {
+    let url = currentKey;
+
+    // check if this key-value pair exists
+    if (returnValue[url] !== undefined) {
+      // Check if it's banned
+      if (isBanned(url, returnValue[url], "initList")) {
+        console.log(
+          "This key:value pair is removed from storage in isBanned()"
+        );
+      } else {
+        let name = returnValue[url];
+        let li = document.createElement("li");
+        let t = document.createTextNode(name);
+
+        li.appendChild(t);
+        document.getElementById("websites").appendChild(t);
+
+        // Add an Id to the element
+        li.id = url;
+
+        // create a few more dom elemetns
+        let span = document.createElement("span");
+        let txt = document.createTextNode("\u00D7");
+        span.className = "delete";
+        span.id = "delete";
+        span.appendChild(txt);
+        li.appendChild(span);
+      }
+    }
+  });
+}
