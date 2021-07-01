@@ -25,7 +25,7 @@ def main():
     outputFile.write(header)
 
     s = "let pornMap={"
-    for c in "0123456789abcdefghijklmnopqrstuvwxyz":
+    for c in "0123456789abcdefghijklmnopqrstuvwxyzABC":
         name = PATH_URLS + c + ".txt"
         urls = open(name, "r")
 
