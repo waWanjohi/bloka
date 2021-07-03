@@ -1,0 +1,53 @@
+
+    <main class="todolist">
+      <h1>
+        Todo List
+        <span>Get things done, one item at a time.</span>
+      </h1>
+
+      <div v-if="link.length">
+        <transition-group name="todolist" tag="ul">
+          <li
+            v-for="item in linkStatus"
+            v-bind:class="item.paused ? 'done' : ''"
+            v-bind:key="item.id"
+          >
+            <span class="label">{{ item.label }}</span>
+            <div class="actions">
+              <button
+                class="btn-picto"
+                type="button"
+                v-on:click="pauseOrResumeLink(item)"
+                v-bind:aria-label="item.done ? 'Undone' : 'Done'"
+                v-bind:title="item.done ? 'Undone' : 'Done'"
+              >
+                <i aria-hidden="true" class="material-icons">{{
+                  item.done ? "check_box" : "check_box_outline_blank"
+                }}</i>
+              </button>
+              <button
+                class="btn-picto"
+                type="button"
+                v-on:click="deleteItemFromList(item)"
+                aria-label="Delete"
+                title="Delete"
+              >
+                <i aria-hidden="true" class="material-icons">delete</i>
+              </button>
+            </div>
+          </li>
+        </transition-group>
+        <togglebutton
+          label="Move done items at the end?"
+          name="todosort"
+          v-on:clicked="clickOnToggle"
+        />
+      </div>
+      <p v-else class="emptylist">Your todo list is empty.</p>
+
+      <form name="newform" v-on:submit.prevent="addItems">
+        <label for="newItem">Add to the todo list</label>
+        <input type="text" name="newitem" id="newitem" v-model="newItem" />
+        <button type="submit">Add item</button>
+      </form>
+    </main>

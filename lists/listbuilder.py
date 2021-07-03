@@ -13,7 +13,7 @@ def main():
     outputFile = open(PROD, "w")
 
     header = "// Bloka\n"
-    header += "// lists.js THIS FILE WAS GENERATED WITH listBuilder.py\n"
+    header += "// lists.js THIS FILE WAS GENERATED WITH listBuilder.py DO NOT EDIT DIRECTLY\n"
     header += "// Thank you:\n"
     header += "// https://github.com/ninjayoto/PornList/blob/master/PornList.txt\n"
     header += "// https://github.com/Bon-Appetit/porn-domains/blob/master/domains.txt\n"

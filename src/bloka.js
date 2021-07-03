@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // updateDB();
   setIncognito();
   initialize();
+  activeTab(url);
 
 //   Popup behavior
 // document.getElementById("submit").onclick(submit);
@@ -30,6 +31,13 @@ document.getElementById("submit").addEventListener("click", submit);
 
 });
 
+
+// Get the current url
+function activeTab(url) {
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+      url = tabs[0].url;
+  }), () => {};
+}
 
 // LOCAL STUFF
 

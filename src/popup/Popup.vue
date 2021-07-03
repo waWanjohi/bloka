@@ -1,43 +1,42 @@
 <template>
-  <div class="container">
-    <h1 class="head">BLOKA</h1>
+  <div class="wrapper">
+    <h1 class="head">Bloka</h1>
 
     <section id="app" class="section">
       <h1 class="title is-1" v-text="form.formName"></h1>
       <div class="columns">
         <div class="column">
-          <form>
+          <form class="form">
             <div class="field">
-              <label class="label">Easy to remember name</label>
+              <label for="name" class="label">Easy to remember name</label>
               <div class="control">
-                <span
-                  ><input
-                    type="text"
-                    class="input"
-                    placeholder="An easy name eg. Google"
-                    v-model="form.link.name"
-                /></span>
+                <input
+                  name="name"
+                  type="text"
+                  class="input"
+                  placeholder="An easy name eg. Google"
+                  v-model="form.link.name"
+                />
               </div>
             </div>
 
             <div class="field">
-              <label class="label">Link</label>
+              <label for="link" class="label">Link</label>
               <div class="control">
-                <span
-                  ><input
-                    type="text"
-                    class="input"
-                    placeholder="Link eg. https://www.example.com"
-                    ref="user_link"
-                    v-model="form.link.url"
-                /></span>
+                <input
+                  name="link"
+                  type="text"
+                  class="input"
+                  placeholder="Link eg. https://www.example.com"
+                  ref="user_link"
+                  v-model="form.link.url"
+                />
               </div>
             </div>
-            <input
-              class="button is-primary margin-bottom"
-              type="submit"
-              @click.prevent="fakeSubmit"
-            />
+
+            <div class="control">
+              <input class="button" type="submit" @click.prevent="fakeSubmit" />
+            </div>
           </form>
 
           <transition name="fade" mode="out-in">
@@ -47,23 +46,29 @@
               </div>
               <div
                 v-if="this.form.link.name === '' && this.form.link.url === ''"
+                class="message-body warn"
               >
-                <p>this can't be empty</p>
+                <p>Form can't be empty!</p>
               </div>
               <div v-else>
-                <div v-if="this.form.link.url === ''">
+                <div class="message-body warn" v-if="this.form.link.url === ''">
                   Please first add a link
                 </div>
                 <div v-else>
                   <div class="message-body">
                     <div v-if="this.form.link.name != ''">
-                      <div>{{ this.form.link.name }} Successfully Added!</div>
+                      <div class="success">
+                        {{ this.form.link.name }} Successfully Added!
+                      </div>
                     </div>
-                    <div v-else>
-                      <div v-if="!validURL(this.$refs.user_link.value)">
+                    <div class="message-body" v-else>
+                      <div
+                        class="warn"
+                        v-if="!validURL(this.$refs.user_link.value)"
+                      >
                         Please add an easy name for the link
                       </div>
-                      <div v-else>
+                      <div class="message-body info" v-else>
                         {{ this.form.link.url }} was added. Consider adding a
                         name :)
                       </div>
@@ -74,10 +79,13 @@
             </article>
           </transition>
         </div>
+        <a href="options.html" target="_blank">Add Link</a>
         <div class="column">
           <h5>
             JSON
           </h5>
+          <button @click.prevent="showActive">Show Active</button>
+          <h1>{{ showActiveLink }}</h1>
           <pre><code>{{form}}</code></pre>
         </div>
       </div>
@@ -85,7 +93,9 @@
   </div>
 </template>
 
+
 <script>
+
 export default {
   name: "Popup",
 
@@ -94,11 +104,12 @@ export default {
       metadata: {},
 
       form: {
-        formName: "Add this site to block List",
+        formName: "Add this a to block List",
         link: { name: "", url: "" },
       },
       showSubmitFeedback: false,
       isValidLink: false,
+      showActiveLink: '',
     };
   },
   methods: {
@@ -122,42 +133,135 @@ export default {
     // Check whether url is a link
     validURL(str) {
       let pattern = new RegExp(
-        "^(https?:\\/\\/)?" +                                 // protocol (http1/http2)
-        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +  // domain name (example.com)
-        "((\\d{1,3}\\.){3}\\d{1,3}))" +                       // OR ip (v4) address (127.0.0.1)
-        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +                   // port and path (:8080)
-        "(\\?[;&a-z\\d%_.~+=-]*)?" +                          // query string (&some+query+here@?/)
-          "(\\#[-a-z\\d_]*)?$",      
+        "^(https?:\\/\\/)?" + // protocol (http1/http2)
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name (example.com)
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address (127.0.0.1)
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path (:8080)
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string (&some+query+here@?/)
+          "(\\#[-a-z\\d_]*)?$",
         "i"
       ); // fragment locator
       this.isValidLink = !!pattern.test(str);
     },
-  },
+  }
 };
 </script>
 
 <style scoped>
-.container {
-  width: 400px;
-  margin: auto;
-  text-align: center;
-}
-.margin-bottom {
-  margin-bottom: 15px;
+* {
+  margin: 0;
+  padding: 0 4px 4px 4px;
+  box-sizing: border-box;
 }
 
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
+body {
+  padding: 0 10px 13px;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
+.wrapper {
+  max-width: 400px;
+  width: 100%;
+  background: #fff;
+  margin: 20px auto;
+  padding: 30px;
+  box-shadow: 1px 1px 2px rgb(63, 63, 63);
 }
 
-.head {
+.wrapper .head {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  margin-left: 40%;
+  text-transform: uppercase;
+  align-content: center;
+}
+
+.wrapper .form {
+  width: 100%;
+}
+
+.wrapper .form .control {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.wrapper .form .control label {
+  width: 200px;
   color: black;
-  font-weight: bolder;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.wrapper .form .control .input {
+  width: 100%;
+  outline: none;
+  border: 1px solid #7f7f96;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.wrapper .form .control .input:focus {
+  border: 1px solid #0000ff;
+  color: #2e2e4b;
+}
+
+.wrapper .form .control .button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  background: #0000ff;
+  color: aliceblue;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}
+
+.wrapper .form .control:last-child {
+  margin-bottom: 0;
+}
+
+.wrapper .form .control .button:hover {
+  background: #3232b1;
+}
+
+pre {
+  background: #f4f4f4;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-left: 3px solid #0000ff;
+  color: rgb(51, 51, 51);
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em 1.5em;
+  display: block;
+  word-wrap: break-word;
+}
+
+.message .warn {
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background: #f5b3a9;
+  border-left: 3px solid #ff2600;
+}
+
+.message .success {
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  font-weight: bold;
+  background: #91f399;
+  border-left: 3px solid #00ff15;
 }
 </style>
