@@ -1,5 +1,4 @@
-import { pornMap } from "./lists"
-
+import { pornMap } from "./lists";
 
 // Do this once extension is removed
 chrome.runtime.setUninstallURL(
@@ -18,58 +17,46 @@ chrome.storage.local.get("notFirstTime", function(returnValue) {
 // Start calling methods
 document.addEventListener("DOMContentLoaded", function(event) {
   // First update the db with firebase
-  // updateDB();
   setIncognito();
   initialize();
-  activeTab(url);
-
-//   Popup behavior
-// document.getElementById("submit").onclick(submit);
-document.getElementById("submit").addEventListener("click", submit);
-// document.getElementById("setIncognito").onclick(setIncognito);
-// document.getElementById("emergency").onclick(emergency);
-
+  //   Popup behavior
+  // document.getElementById("submit").onclick(submit);
+  // document.getElementById("activeLink").addEventListener("click", submit);
+  // document.getElementById("setIncognito").onclick(setIncognito);
+  // document.getElementById("emergency").onclick(emergency);
 });
-
-
-// Get the current url
-function activeTab(url) {
-  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-      url = tabs[0].url;
-  }), () => {};
-}
 
 // LOCAL STUFF
 
 // Function submit()
-// Begin the process of creating a new list item when clicking on the "Add" button
-function submit() {
-  let url = document.getElementById("link_url").value.trim();
-  let name = document.getElementById("link_name").value.trim();
+// // Begin the process of creating a new list item when clicking on the "Add" button
+// function submit() {
+//   let url = document.getElementById("link_url").value.trim();
+//   let name = document.getElementById("link_name").value.trim();
 
-  // Boolean flag to avoid modifiying filepath submissions
-  let isURL = !url.includes("file://");
+//   // Boolean flag to avoid modifiying filepath submissions
+//   let isURL = !url.includes("file://");
 
-  // URL checks
-  if (isURL) {
-    // Input blank, do nothing
-    if (url === "") {
-      // Set error message to blank
-      document.getElementById("ERROR_MSG").innerHTML = "";
+//   // URL checks
+//   if (isURL) {
+//     // Input blank, do nothing
+//     if (url === "") {
+//       // Set error message to blank
+//       document.getElementById("ERROR_MSG").innerHTML = "";
 
-      return;
-    }
+//       return;
+//     }
 
-    // Any spaces, display error
-    else if (url.includes(" ")) {
-      document.getElementById("ERROR_MSG").innerHTML =
-        "Invalid format, sorry. Do not include spaces in the link.";
-      return;
-    }
-  }
+//     // Any spaces, display error
+//     else if (url.includes(" ")) {
+//       document.getElementById("ERROR_MSG").innerHTML =
+//         "Invalid format, sorry. Do not include spaces in the link.";
+//       return;
+//     }
+//   }
 
-  isBanned(url, name, "submit");
-}
+//   isBanned(url, name, "submit");
+// }
 
 // Extract the domain name from the inputted url and check if the input's
 //  domain name is a porn site domain
@@ -264,8 +251,6 @@ function setIncognito() {
   });
 }
 
-
-
 // Function emergency()
 // emergency button functionality
 // open all redirects in separate windows
@@ -306,10 +291,12 @@ function initialize() {
 
     // If list is empty, Let the user know
     else {
-        if (document.getElementById("ERROR_MSG")) {
-            let message = "Nothing yet. List is empty";
-            document.getElementById("ERROR_MSG").innerHTML = message.fontcolor("red");
-        }
+      if (document.getElementById("ERROR_MSG")) {
+        let message = "Nothing yet. List is empty";
+        document.getElementById("ERROR_MSG").innerHTML = message.fontcolor(
+          "red"
+        );
+      }
     }
   });
 }
@@ -354,11 +341,7 @@ function initList(currentKey) {
   });
 }
 
-
-
-
-
-// ORPHANED CODE... 
+// ORPHANED CODE...
 // To Remove
 // Function to update db
 // function updateDB() {
@@ -368,9 +351,9 @@ function initList(currentKey) {
 //       // DBOperation(linkNames);
 //     });
 //   }
-  
-  // FINETUNE LATER
-  // function to do db operations
+
+// FINETUNE LATER
+// function to do db operations
 //   function DBOperation(linkNames) {
 //     //     // Cross-check the api key
 //     //     if(!API_KEY) {
@@ -455,12 +438,11 @@ function initList(currentKey) {
 //     // // END FIREBASE
 //   }
 
-
 // Function helpIncognito()
 // Should users click on the incognito tip, they are directed to Antiporn's
 //  extension page to help with the process of enabling "Allow in incognito"
 function helpIncognito() {
-    chrome.tabs.create({
-      url: "chrome://extensions/?id=" + chrome.runtime.id,
-    });
-  }
+  chrome.tabs.create({
+    url: "chrome://extensions/?id=" + chrome.runtime.id,
+  });
+}

@@ -79,14 +79,13 @@
             </article>
           </transition>
         </div>
-        <a href="options.html" target="_blank">Add Link</a>
         <div class="column">
           <h5>
             JSON
           </h5>
-          <button @click.prevent="showActive">Show Active</button>
-          <h1>{{ showActiveLink }}</h1>
-          <pre><code>{{form}}</code></pre>
+          <button id="activeLink" ref="tab" onclick="getCurrentTab">Show Active</button>
+          oo
+          <h1>{{ tab }}</h1>
         </div>
       </div>
     </section>
@@ -95,7 +94,6 @@
 
 
 <script>
-
 export default {
   name: "Popup",
 
@@ -109,7 +107,7 @@ export default {
       },
       showSubmitFeedback: false,
       isValidLink: false,
-      showActiveLink: '',
+      tab: 'sdkj',
     };
   },
   methods: {
@@ -151,27 +149,19 @@ export default {
 * {
   margin: 0;
   padding: 0 4px 4px 4px;
-  box-sizing: border-box;
-}
-
-body {
-  padding: 0 10px 13px;
+  width: 300px;
 }
 
 .wrapper {
-  max-width: 400px;
   width: 100%;
   background: #fff;
-  margin: 20px auto;
-  padding: 30px;
-  box-shadow: 1px 1px 2px rgb(63, 63, 63);
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .wrapper .head {
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 24px;
-  margin-left: 40%;
   text-transform: uppercase;
   align-content: center;
 }
@@ -229,23 +219,6 @@ body {
   background: #3232b1;
 }
 
-pre {
-  background: #f4f4f4;
-  width: 100%;
-  border: 1px solid #ddd;
-  border-left: 3px solid #0000ff;
-  color: rgb(51, 51, 51);
-  page-break-inside: avoid;
-  font-family: monospace;
-  font-size: 12px;
-  line-height: 1.6;
-  margin-bottom: 1.6em;
-  max-width: 100%;
-  overflow: auto;
-  padding: 1em 1.5em;
-  display: block;
-  word-wrap: break-word;
-}
 
 .message .warn {
   width: 100%;
@@ -263,5 +236,9 @@ pre {
   font-weight: bold;
   background: #91f399;
   border-left: 3px solid #00ff15;
+}
+
+.column {
+  width: 100%;
 }
 </style>

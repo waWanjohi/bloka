@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-      <popup />
-  </div>
+  <popup />
 </template>
 
 <script>
@@ -13,5 +11,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
