@@ -14,12 +14,8 @@ def main():
 
     header = "// Bloka\n"
     header += "// lists.js THIS FILE WAS GENERATED WITH listBuilder.py DO NOT EDIT DIRECTLY\n"
-    header += "// Thank you:\n"
-    header += "// https://github.com/ninjayoto/PornList/blob/master/PornList.txt\n"
+    header += "// Fetched from:\n"
     header += "// https://github.com/Bon-Appetit/porn-domains/blob/master/domains.txt\n"
-    header += "// https://pastebin.com/gpHmA8X5\n //Expired, but still counts"
-    header += "// Alexa web ranking service for that good 7-day free trial\n"
-    header += "// People who've triggered Bloka's capture system\n"
     header += "\n"
 
     outputFile.write(header)

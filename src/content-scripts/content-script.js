@@ -1,14 +1,14 @@
 import { pornMap, bannedWordsList } from "./lists";
 
 let uris = [
-  "ftnd.org",
-  "https://www.frc.org/issuebrief/the-effects-of-pornography-on-individuals-marriage-family-and-community",
-  "https://www.webmd.com/connect-to-care/addiction-treatment-recovery/porn-addiction-treatments",
-  "https://www.rehabs.com/addiction/porn-rehabs/",
-  "https://www.flfamily.org/get-help/porn-addiction",
-  "https://trafalgarresidence.com/blog/porn-addiction-recovery/",
-  "https://www.cru.org/us/en/how-to-know-god/my-story-a-life-changed/how-i-overcame-my-porn-addiction.html",
-  "https://fiftyshadesoflove.org/#connection",
+  "https://youtu.be/2fOWFfpLYW0",
+  "https://youtu.be/ZKzeejOwoXk",
+  "https://youtu.be/H7Gp-GRnGdA",
+  "https://youtu.be/Gt2mYPwXyAc",
+  "https://youtu.be/8LGW5xDVUIA",
+  "https://youtu.be/Sm31U_V5TkU",
+  "https://youtu.be/GM0E93B-Ztg",
+  "https://youtu.be/H7Gp-GRnGdA",
 ];
 
 let links = [];

@@ -19,48 +19,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // First update the db with firebase
   setIncognito();
   initialize();
-  //   Popup behavior
-  // document.getElementById("submit").onclick(submit);
-  // document.getElementById("activeLink").addEventListener("click", submit);
-  // document.getElementById("setIncognito").onclick(setIncognito);
-  // document.getElementById("emergency").onclick(emergency);
 });
 
-// LOCAL STUFF
-
-// Function submit()
-// // Begin the process of creating a new list item when clicking on the "Add" button
-// function submit() {
-//   let url = document.getElementById("link_url").value.trim();
-//   let name = document.getElementById("link_name").value.trim();
-
-//   // Boolean flag to avoid modifiying filepath submissions
-//   let isURL = !url.includes("file://");
-
-//   // URL checks
-//   if (isURL) {
-//     // Input blank, do nothing
-//     if (url === "") {
-//       // Set error message to blank
-//       document.getElementById("ERROR_MSG").innerHTML = "";
-
-//       return;
-//     }
-
-//     // Any spaces, display error
-//     else if (url.includes(" ")) {
-//       document.getElementById("ERROR_MSG").innerHTML =
-//         "Invalid format, sorry. Do not include spaces in the link.";
-//       return;
-//     }
-//   }
-
-//   isBanned(url, name, "submit");
-// }
 
 // Extract the domain name from the inputted url and check if the input's
 //  domain name is a porn site domain
-// Ya boi Vivek out here writing a porn filter ayy lmao
 // @param url The url whose domain name we check against the porn sites
 // @param name The name of the url
 // @param origin The name of the function that called isBanned
@@ -89,7 +52,7 @@ function isBanned(url, name, origin) {
 // This function does the checking of a link's ban-status. It exists to remove the undesired effects
 //  from asynchronous behaviors that were affecting Antiporn's functionality
 // @param url The url to test
-// @param bannedLinks The entire list of links, hardcoded and from storage
+// @param bannedLinks
 function isBannedURLRaceCondition(url, bannedLinks) {
   let lowerCase = url.toLowerCase();
 
@@ -125,7 +88,7 @@ function isBannedURLRaceCondition(url, bannedLinks) {
     return true;
   }
 
-  // Else, screen for domain in that alright O(n)
+  
   // Compare domain name (well, and the rest of the link) with porn domains
   // O(n) worst case feels bad but wh(O)lesome porn-checker feels good
   for (let i = 0; i < bannedLinks.length; i++) {
@@ -338,111 +301,5 @@ function initList(currentKey) {
         li.appendChild(span);
       }
     }
-  });
-}
-
-// ORPHANED CODE...
-// To Remove
-// Function to update db
-// function updateDB() {
-//     chrome.storage.local.get(null, function(items) {
-//       let linkNames = Object.keys(items);
-//       // Do stuff with the links:: FINETUNE LATER
-//       // DBOperation(linkNames);
-//     });
-//   }
-
-// FINETUNE LATER
-// function to do db operations
-//   function DBOperation(linkNames) {
-//     //     // Cross-check the api key
-//     //     if(!API_KEY) {
-//     //         console.warn("Firebase API Key invalid");
-//     //     }
-//     //     return;
-//     // // FIRESTORE SETUP
-//     // const API_KEY = "AIzaSyAV-2d0ZSHseDpEM_LqdUXmA75Qe_QvBj8";
-//     // const AUTH_DOMAIN = "antiporn-f6472.firebaseapp.com";
-//     // const DATABASE_URL = "antiporn-f6472";
-//     // const PROJECT_ID = "antiporn-f6472";
-//     // const STORAGE_BUCKET = "117423349655";
-//     // const MESSAGING_SENDER_ID = "1:117423349655:web:b0ff68691d6826fb642ed2";
-//     // // Firebase
-//     // let config = {
-//     //     apiKey: API_KEY,
-//     //     authDomain: AUTH_DOMAIN,
-//     //     databaseURL: DATABASE_URL,
-//     //     projectId: PROJECT_ID,
-//     //     storageBucket: STORAGE_BUCKET,
-//     //     messagingSenderId: MESSAGING_SENDER_ID
-//     //   };
-//     // // Initialize a FB app
-//     // firebase.initializeApp(config);
-//     // // invoke firestore
-//     // let db = firebase.firestore();
-//     // // To prevent app from breaking due to an error,
-//     // let settings = {
-//     //     /* Settings here ... */
-//     //     timestampsInSnapshots: true
-//     // }
-//     // db.settings(settings);
-//     // let linksToAdd = [];
-//     // // Add links
-//     // for (let currentLink = 0; linkNames[currentLink] !== undefined; currentLink++) {
-//     //     let val = linkNames[currentLink];
-//     //     if (val !== 'realtimeBannedLinks' && vals !== 'notFirstTime') {
-//     //         db.collection('links').doc(val).set({
-//     //             // Adding this line will write another document ( links -> link -> link:currentLink )
-//     //             url: val
-//     //         });
-//     //        // Debugging
-//     //       // .then(function(docRef) {
-//     //       //   console.log('Document written with id: ', docRef.id);
-//     //       // })
-//     //       // .catch(function(error) {
-//     //       //   console.error('Error adding document: ', error);
-//     //       // });
-//     //       linksToAdd.push(val);
-//     //     }
-//     // }
-//     // // Now let's update the main array of links
-//     // let allLinks  = db.collection('links').doc('realtimeBannedLinks')
-//     // allLinks.get().then(function (doc) {
-//     //     if(doc.exists) {
-//     //         // Get updated list
-//     //         let currentLinks = doc.data().url;
-//     //         // Add the links from local storage to the copy of the realtimeBannedLinks
-//     //       console.log('length INIT: ' + currentLinks.length);
-//     //       for (let i = 0; linksToAdd[i] !== undefined; i++) {
-//     //           currentLinks.push(linksToAdd[i]);
-//     //         // Clear local storage to free up space
-//     //         chrome.storage.local.remove([linksToAdd[i]], function () {});
-//     //       }
-//     //       console.log('length FINAL: ' + currentLinks.length);
-//     //     // Then, update the array of links saved in local storage and update the
-//     //     //realtimeBannedLinks in Firebase
-//     //     // Do this, and you will have successfully created a method of updating
-//     //     // Firebase and everyone else's local storage copies of realtimeBannedLinks
-//     //     chrome.storage.local.set({ realtimeBannedLinks: currentLinks }, function () { });
-//     //     db.collection('links').doc('realtimeBannedLinks').set({
-//     //         url: currentLinks
-//     //     });
-//     //   }
-//     //   else {
-//     //     //   doc.data() will be empty
-//     //     console.log("Document does not exist!");
-//     //   }
-//     // }).catch(function (error) {
-//     //     console.log("Gideon, We have a problem!" + error);
-//     // })
-//     // // END FIREBASE
-//   }
-
-// Function helpIncognito()
-// Should users click on the incognito tip, they are directed to Antiporn's
-//  extension page to help with the process of enabling "Allow in incognito"
-function helpIncognito() {
-  chrome.tabs.create({
-    url: "chrome://extensions/?id=" + chrome.runtime.id,
   });
 }
