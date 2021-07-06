@@ -1,15 +1,17 @@
 import { pornMap, bannedWordsList } from "./lists";
 
-let uris = [
-  "https://youtu.be/2fOWFfpLYW0",
-  "https://youtu.be/ZKzeejOwoXk",
-  "https://youtu.be/H7Gp-GRnGdA",
-  "https://youtu.be/Gt2mYPwXyAc",
-  "https://youtu.be/8LGW5xDVUIA",
-  "https://youtu.be/Sm31U_V5TkU",
-  "https://youtu.be/GM0E93B-Ztg",
-  "https://youtu.be/H7Gp-GRnGdA",
-];
+// let uris = [
+//   "https://youtu.be/2fOWFfpLYW0",
+//   "https://youtu.be/ZKzeejOwoXk",
+//   "https://youtu.be/H7Gp-GRnGdA",
+//   "https://youtu.be/Gt2mYPwXyAc",
+//   "https://youtu.be/8LGW5xDVUIA",
+//   "https://youtu.be/Sm31U_V5TkU",
+//   "https://youtu.be/GM0E93B-Ztg",
+//   "https://youtu.be/H7Gp-GRnGdA",
+// ];
+
+let uris = ["https://google.com"];
 
 let links = [];
 links.push();

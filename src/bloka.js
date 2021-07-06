@@ -214,27 +214,6 @@ function setIncognito() {
   });
 }
 
-// Function emergency()
-// emergency button functionality
-// open all redirects in separate windows
-// Why so many windows? so many windows to maximize the amount of time user
-//  spends looking at the stuff that motivates him/her
-// More exposure may lead to more conversion of sexual energy into positive energy
-function emergency() {
-  chrome.storage.sync.get(null, function(items) {
-    urls = Object.keys(items);
-
-    // Add quality education to the opened links
-    urls.push("https://fightthenewdrug.org/overview/");
-    urls.push("http://virtual-addiction.com/online-pornography-test/");
-    urls.push("user_manual/welcome.html");
-    // Iterate through the urls array
-    //  and mass-open all the links
-    for (let i = 0; urls[i] !== undefined; i++) {
-      openWindow(urls[i]);
-    }
-  });
-}
 
 function initialize() {
   // Have an array store all keys
