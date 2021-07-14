@@ -1,5 +1,6 @@
 import { pornMap, bannedWordsList } from "./lists";
 
+// A random list of youtube channels :: -> I've removed because they can be used to trigger the "videoplayback" glitch!
 // let uris = [
 //   "https://youtu.be/2fOWFfpLYW0",
 //   "https://youtu.be/ZKzeejOwoXk",
@@ -19,10 +20,8 @@ let size = -1;
 let counter = 0;
 let safeSearch = "&safe=active";
 
-// Let a link be shuffled from the array of links
-
+// Let a link be shuffled from the array of links [ google.com ]
 let defaultLink = uris[~~(uris.length * Math.random())];
-// 'https://fiftyshadesoflove.org/#connection'
 
 // Let's go
 main();
@@ -37,7 +36,7 @@ function main() {
     return;
   }
 
-  // ROUTE LOCALSTORAGE ( [ideally is] MOST UP TO DATE )
+  // Check from the local storage ...
   chrome.storage.local.get("realtimeBannedLinks", function(returnValue) {
     let firebaseLinks = returnValue.realtimeBannedLinks;
     let hostname = location.hostname;
@@ -68,6 +67,7 @@ function main() {
   });
 
   // ROUTE HARDCODED ( FASTER but does not contain latest links )
+  // I've combatted this by running a periodic script @lists/update.sh
   // If the url is a porn site, call blockSite
   if (
     isBannedURL() &&
@@ -87,7 +87,7 @@ function main() {
     ) {
       return;
     } else {
-      // blockSite();  ==> Had a slow implementation
+      // blockSite();  ==> Had a slow implementation, 0(n) worst case ...
       window.location.href = defaultLink;
     }
   }
@@ -99,7 +99,7 @@ function main() {
 function blockSite() {
   window.stop();
 
-  // Array that stores all the keys (aka the urls)
+  // Array that stores all the keys (in our case, the urls)
   let allKeys;
 
   // Get all/no urls currently in storage
