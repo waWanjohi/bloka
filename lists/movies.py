@@ -2,9 +2,7 @@
 # ./listBuilder.py ; cat lists.js
 
 def main():
-
-    DEV = "testFile.txt"
-    PROD = "lists.js"
+    PROD = "movies.js"
 
     PATH_URLS = "Urls/"
     PATH_KEYWORDS = "Keywords/"
@@ -13,15 +11,12 @@ def main():
     outputFile = open(PROD, "w")
 
     header = "// Bloka\n"
-    header += "// lists.js THIS FILE WAS GENERATED WITH listBuilder.py DO NOT EDIT DIRECTLY\n"
-    header += "// Fetched from:\n"
-    header += "// https://github.com/Bon-Appetit/porn-domains/blob/master/domains.txt\n"
-    header += "\n"
+    header += "// movies.js THIS FILE WAS GENERATED WITH movies.py DO NOT EDIT DIRECTLY\n"
 
     outputFile.write(header)
 
-    s = "let pornMap={"
-    for c in "0123456789abcdefghijklmnopqrstuvwxyz":
+    s = "export let moviesMap={"
+    for c in "X":
         name = PATH_URLS + c + ".txt"
         urls = open(name, "r")
 
@@ -34,8 +29,8 @@ def main():
 
     outputFile.write(s)
 
-    s = "let bannedWordsList=["
-    for c in "abcdefghijklmnopqrstuvwxyz":
+    s = "export let bannedWordsList=["
+    for c in "1":
         name = PATH_KEYWORDS + c + ".txt"
         urls = open(name, "r")
 
@@ -48,7 +43,7 @@ def main():
 
     outputFile.write(s)
     outputFile.close()
-    print("Now run cp lists.js src/lists.js")
+    print("Now run cp movies.js src/movies.js")
 
 if (__name__ == "__main__"):
     main()

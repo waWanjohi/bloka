@@ -1,4 +1,5 @@
 import { pornMap, bannedWordsList } from "./lists";
+import { moviesMap } from "../../lists/movies";
 
 // A random list of youtube channels :: -> I've removed because they can be used to trigger the "videoplayback" glitch!
 // let uris = [
@@ -209,7 +210,7 @@ function isBannedURL() {
 
   // O(1) and whO(l)esome
   if (!url.includes("fightthenewdrug") && !url.includes("github")) {
-    if (pornMap[url]) {
+    if (pornMap[url] || moviesMap[url]) {
       window.stop();
       return true;
     }

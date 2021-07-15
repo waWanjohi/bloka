@@ -1,7 +1,10 @@
 .DS_Store
+.idea
 node_modules
 /dist
-
+/lists/Keywords
+/lists/Urls
+/lists/new.txt
 
 # local env files
 .env.local
