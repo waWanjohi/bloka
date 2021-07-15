@@ -1,5 +1,0 @@
-ccleaner.com
-example.com
-example.net
-example.org
-heavy.com
